@@ -50,13 +50,13 @@ export default function MemoryScreen() {
     setFlipped(next);
 
     // Si hay dos cartas volteadas, verificar coincidencia
-    if (next.length === 2) {
+     if (next.length === 2) {
       setLocked(true);
       const [i1, i2] = next;
       const c1 = deck[i1];
       const c2 = deck[i2];
       if (c1.image === c2.image) {
-        // Si coinciden → marcarlas como encontradas
+        // Si coinciden → marcarlas como encontradas (esperar 5s antes de limpiar)
         const updated = deck.map((c, idx) =>
           idx === i1 || idx === i2 ? { ...c, matched: true } : c
         );
@@ -64,13 +64,13 @@ export default function MemoryScreen() {
           setDeck(updated);
           setFlipped([]);
           setLocked(false);
-        }, 400);
+        }, 5000); // 5 segundos
       } else {
-        // Si no coinciden → voltearlas de nuevo
+        // Si no coinciden → voltearlas de nuevo después de 5s
         setTimeout(() => {
           setFlipped([]);
           setLocked(false);
-        }, 700);
+        }, 5000); // 5 segundos
       }
     }
   };
